@@ -6,6 +6,15 @@ package com.appdirect.dto;
 public class PayloadDTO {
     private CompanyDTO company;
     private OrderDTO order;
+    private AccountDTO account;
+
+    public AccountDTO getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountDTO account) {
+        this.account = account;
+    }
 
     public CompanyDTO getCompany() {
         return company;
@@ -25,9 +34,10 @@ public class PayloadDTO {
 
     @Override
     public String toString() {
-        return "Payload{" +
+        return "PayloadDTO{" +
                 "company=" + company +
                 ", order=" + order +
+                ", account=" + account +
                 '}';
     }
 }

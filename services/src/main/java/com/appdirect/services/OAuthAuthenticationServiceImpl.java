@@ -1,5 +1,6 @@
 package com.appdirect.services;
 
+import com.appdirect.dto.EventDTO;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -32,16 +33,18 @@ public class OAuthAuthenticationServiceImpl implements OAuthAuthenticationServic
     @Autowired
     private Token appDirectToken;
 
-    public void validatingRequestsFromAppDirect(String eventUrl) {
+    public EventDTO validatingRequestsFromAppDirect(String eventUrl) {
         OAuthRequest request = new OAuthRequest(Verb.GET, eventUrl);
         appDirectOAuthService.signRequest(appDirectToken, request);
         Response responseFromAppDirect = request.send();
+        EventDTO eventDTO =null;
         try {
-            marshaller.unmarshal(new StreamSource(
+            eventDTO= (EventDTO) marshaller.unmarshal(new StreamSource(
                     new ByteArrayInputStream(responseFromAppDirect.getBody().getBytes("utf-8"))));
+
         } catch (UnsupportedEncodingException e) {
             logger.error("UnsupportedEncodingException {}",e);
         }
-
+        return eventDTO;
     }
 }
