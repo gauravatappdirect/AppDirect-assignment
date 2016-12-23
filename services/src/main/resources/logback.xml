@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property file="application.properties" />
+    <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.dir.location}/appDirectAssignment.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${log.dir.location}/appDirectAssignment.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>${max.log.history}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{'yyyy-MM-dd HH:mm:ss,SSS',IST} [%thread] %-5level %class{36}.%M %L - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <root level="ERROR">
+        <appender-ref ref="APPLICATION" />
+    </root>
+</configuration>
