@@ -18,7 +18,7 @@
             </pattern>
         </encoder>
     </appender>
-    <root level="ERROR">
+    <root level="${log.level}">
         <appender-ref ref="APPLICATION" />
     </root>
 </configuration>
