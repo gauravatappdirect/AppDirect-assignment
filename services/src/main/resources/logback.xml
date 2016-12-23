@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property file="application.properties" />
+    <property resource="application.properties" />
     <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.dir.location}/appDirectAssignment.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

@@ -2,9 +2,12 @@ package com.appdirect.dto;
 
 import com.appdirect.enums.EventType;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created by gaurav on 24/12/16.
  */
+@XmlRootElement(name="event")
 public class EventDTO {
     private EventType type;
     private MarketplaceDTO marketplace;
