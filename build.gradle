@@ -1,19 +1,45 @@
-group 'assignment'
-version '1.0-SNAPSHOT'
+buildscript {
+    ext {
+        springBootVersion = '1.4.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+subprojects{
+    group 'assignment'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    jar {
+        baseName = 'AppDirect'
+        version = '1.0-SNAPSHOT'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile('org.springframework.boot:spring-boot-starter-web')
+    }
+
+}
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.13'
   distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
-apply plugin: 'java'
 
-sourceCompatibility = 1.5
 
-repositories {
-    mavenCentral()
-}
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-}
