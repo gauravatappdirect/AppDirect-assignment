@@ -2,4 +2,5 @@ rootProject.name = 'AppDirect'
 include 'web'
 include 'services'
 include 'config'
+include 'domain'
 
