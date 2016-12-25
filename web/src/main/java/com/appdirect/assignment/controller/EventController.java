@@ -3,7 +3,7 @@ package com.appdirect.assignment.controller;
 import com.appdirect.assignment.dto.EventResponseDTO;
 import com.appdirect.assignment.mapper.ViewMapper;
 import com.appdirect.assignment.representation.EventResponseRepresentation;
-import com.appdirect.assignment.services.SubscriptionService;
+import com.appdirect.assignment.services.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by gaurav on 23/12/16.
  */
 @RestController
-@RequestMapping(value = "/manageSubscription")
-public class SubscriptionController {
+@RequestMapping("api/manageEvent/v1")
+public class EventController {
 
-    Logger logger = LoggerFactory.getLogger(SubscriptionController.class);
+    Logger logger = LoggerFactory.getLogger(EventController.class);
 
     @Autowired
-    SubscriptionService subscriptionService;
+    EventService eventService;
 
     @Autowired
     ViewMapper viewMapper;
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody EventResponseRepresentation handleSubscriptionEvent(@RequestParam("eventUrl") String eventUlr){
+    public @ResponseBody EventResponseRepresentation handleEvent(@RequestParam("eventUrl") String eventUlr){
         logger.debug("eventUrl : {}", eventUlr);
-        EventResponseDTO eventResponseDTO = subscriptionService.handleSubscriptionEvent(eventUlr);
+        EventResponseDTO eventResponseDTO = eventService.handleEvent(eventUlr);
         return viewMapper.map(eventResponseDTO, EventResponseRepresentation.class);
     }
 }

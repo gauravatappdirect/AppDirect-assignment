@@ -8,6 +8,16 @@ public class PayloadDTO {
     private OrderDTO order;
     private AccountDTO account;
 
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    private UserDTO user;
+
     public AccountDTO getAccount() {
         return account;
     }

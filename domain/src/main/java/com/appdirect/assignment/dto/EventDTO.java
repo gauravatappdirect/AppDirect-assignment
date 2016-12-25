@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EventDTO {
     private EventType type;
     private MarketplaceDTO marketplace;
-    private CreatorDTO creator;
+    private UserDTO creator;
     private PayloadDTO payload;
 
     public EventType getType() {
@@ -30,11 +30,11 @@ public class EventDTO {
         this.marketplace = marketplace;
     }
 
-    public CreatorDTO getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(CreatorDTO creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 

@@ -37,13 +37,16 @@ public class OAuthAuthenticationServiceImpl implements OAuthAuthenticationServic
         OAuthRequest request = new OAuthRequest(Verb.GET, eventUrl);
         appDirectOAuthService.signRequest(appDirectToken, request);
         Response responseFromAppDirect = request.send();
-        EventDTO eventDTO =null;
-        try {
-            eventDTO= (EventDTO) marshaller.unmarshal(new StreamSource(
-                    new ByteArrayInputStream(responseFromAppDirect.getBody().getBytes("utf-8"))));
+        int errorCodeFromOAuth = responseFromAppDirect.getCode();
+        EventDTO eventDTO = null;
+        if(errorCodeFromOAuth>=200 && errorCodeFromOAuth<300){
+            try {
+                eventDTO= (EventDTO) marshaller.unmarshal(new StreamSource(
+                        new ByteArrayInputStream(responseFromAppDirect.getBody().getBytes("utf-8"))));
 
-        } catch (UnsupportedEncodingException e) {
-            logger.error("UnsupportedEncodingException {}",e);
+            } catch (UnsupportedEncodingException e) {
+                logger.error("UnsupportedEncodingException {}",e);
+            }
         }
         return eventDTO;
     }

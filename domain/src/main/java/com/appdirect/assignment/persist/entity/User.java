@@ -1,25 +1,23 @@
-package com.appdirect.assignment.dto;
+package com.appdirect.assignment.persist.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
- * Created by gaurav on 24/12/16.
+ * Created by gaurav on 25/12/16.
  */
-public class CreatorDTO {
-    private AddressDTO address;
+@Entity
+public class User implements Serializable {
+
+    @Id
+    private String uuid;
     private String email;
     private String firstName;
     private String language;
     private String lastName;
     private String locale;
     private String openId;
-    private String uuid;
-
-    public AddressDTO getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressDTO address) {
-        this.address = address;
-    }
 
     public String getEmail() {
         return email;
@@ -78,17 +76,13 @@ public class CreatorDTO {
     }
 
     @Override
-    public String toString() {
-        return "Creator{" +
-                "address=" + address +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", language='" + language + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", locale='" + locale + '\'' +
-                ", openId='" + openId + '\'' +
-                ", uuid='" + uuid + '\'' +
-                '}';
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        User user = (User) o;
+
+        return uuid != null ? uuid.equals(user.uuid) : user.uuid == null;
+
+    }
 }

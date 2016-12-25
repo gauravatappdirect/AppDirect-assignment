@@ -5,7 +5,7 @@ package com.appdirect.assignment.dto;
  */
 public class AccountDTO {
     private  String accountIdentifier;
-    private String accountStatus;
+    private String status;
 
     public String getAccountIdentifier() {
         return accountIdentifier;
@@ -15,19 +15,19 @@ public class AccountDTO {
         this.accountIdentifier = accountIdentifier;
     }
 
-    public String getAccountStatus() {
-        return accountStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAccountStatus(String accountStatus) {
-        this.accountStatus = accountStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "AccountDTO{" +
                 "accountIdentifier='" + accountIdentifier + '\'' +
-                ", accountStatus=" + accountStatus +
+                ", status=" + status +
                 '}';
     }
 }
