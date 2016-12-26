@@ -1,6 +1,7 @@
 package com.appdirect.assignment.controller;
 
 import com.appdirect.assignment.dto.EventResponseDTO;
+import com.appdirect.assignment.exceptions.ServiceException;
 import com.appdirect.assignment.mapper.ViewMapper;
 import com.appdirect.assignment.representation.EventResponseRepresentation;
 import com.appdirect.assignment.services.EventService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by gaurav on 23/12/16.
  */
 @RestController
-@RequestMapping("api/manageEvent/v1")
+@RequestMapping("api/event/v1")
 public class EventController {
 
     Logger logger = LoggerFactory.getLogger(EventController.class);
@@ -29,7 +30,7 @@ public class EventController {
     ViewMapper viewMapper;
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody EventResponseRepresentation handleEvent(@RequestParam("eventUrl") String eventUlr){
+    public @ResponseBody EventResponseRepresentation handleEvent(@RequestParam("eventUrl") String eventUlr) throws ServiceException{
         logger.debug("eventUrl : {}", eventUlr);
         EventResponseDTO eventResponseDTO = eventService.handleEvent(eventUlr);
         return viewMapper.map(eventResponseDTO, EventResponseRepresentation.class);

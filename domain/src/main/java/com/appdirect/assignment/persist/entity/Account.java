@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by gaurav on 24/12/16.
  */
 @Entity
-public class Account  {
+public class Account implements Serializable {
+    private static final long serialVersionUID = 4305460084612964620L;
     @Id
     private String uuid;
     private String accountStatus;

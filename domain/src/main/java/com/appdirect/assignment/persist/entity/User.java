@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Entity
 public class User implements Serializable {
 
+    private static final long serialVersionUID = -3249734294350890327L;
     @Id
     private String uuid;
     private String email;
