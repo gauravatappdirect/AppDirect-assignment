@@ -30,7 +30,8 @@ public class EventController {
     ViewMapper viewMapper;
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody EventResponseRepresentation handleEvent(@RequestParam("eventUrl") String eventUlr) throws ServiceException{
+    @ResponseBody
+    public EventResponseRepresentation handleEvent(@RequestParam("eventUrl") String eventUlr) throws ServiceException{
         logger.debug("eventUrl : {}", eventUlr);
         EventResponseDTO eventResponseDTO = eventService.handleEvent(eventUlr);
         return viewMapper.map(eventResponseDTO, EventResponseRepresentation.class);

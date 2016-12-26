@@ -10,6 +10,7 @@ import org.scribe.oauth.OAuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.UnmarshallingFailureException;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 
@@ -40,13 +41,17 @@ public class OAuthAuthenticationServiceImpl implements OAuthAuthenticationServic
         Response responseFromAppDirect = request.send();
         int errorCodeFromOAuth = responseFromAppDirect.getCode();
         EventDTO eventDTO = null;
-        if(errorCodeFromOAuth>=200 && errorCodeFromOAuth<300){
+        if(errorCodeFromOAuth>=200 && errorCodeFromOAuth<300 && responseFromAppDirect.getBody()!=null){
             try {
                 eventDTO= (EventDTO) marshaller.unmarshal(new StreamSource(
                         new ByteArrayInputStream(responseFromAppDirect.getBody().getBytes("utf-8"))));
 
             } catch (UnsupportedEncodingException e) {
                 logger.error("UnsupportedEncodingException {}",e);
+            } catch (UnmarshallingFailureException e) {
+                logger.error("Unable to marshal the appDirect response event {}",e);
+            } catch (Exception e) {
+                logger.error("Error processing event received");
             }
         }
         return eventDTO;
