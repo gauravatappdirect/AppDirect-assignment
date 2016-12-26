@@ -8,6 +8,7 @@ import com.appdirect.assignment.mapper.ViewMapper;
 import com.appdirect.assignment.persist.entity.Account;
 import com.appdirect.assignment.persist.entity.User;
 import com.appdirect.assignment.repository.AccountRepository;
+import org.scribe.exceptions.OAuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +31,20 @@ public class EventServiceImpl implements EventService {
     ViewMapper viewMapper;
 
     public EventResponseDTO handleEvent(String eventUrl) {
-        EventDTO eventDTO = oAuthAuthenticationService.validatingRequestsFromAppDirect(eventUrl);
         EventResponseDTO eventResponseDTO = null;
-        if(eventDTO==null) {
-            eventResponseDTO = new EventResponseDTO(false, null, ErrorCode.UNKNOWN_ERROR, "Error During event creation");
-        } else {
-            eventResponseDTO = getEventResponseFromEvent(eventDTO);
+        try {
+            EventDTO eventDTO = oAuthAuthenticationService.validatingRequestsFromAppDirect(eventUrl);
+            if(eventDTO==null) {
+                eventResponseDTO = new EventResponseDTO(false, null, ErrorCode.UNKNOWN_ERROR, "Error During event creation");
+            } else {
+                eventResponseDTO = getEventResponseFromEvent(eventDTO);
+            }
+        } catch (OAuthException e){
+            eventResponseDTO = new EventResponseDTO(false, null, ErrorCode.UNAUTHORIZED,
+                    e.getMessage());
+        } finally {
+            return eventResponseDTO;
         }
-        return eventResponseDTO;
     }
     private EventResponseDTO getEventResponseFromEvent(EventDTO event) {
         EventResponseDTO eventResponse;

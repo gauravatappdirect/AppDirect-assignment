@@ -1,6 +1,7 @@
 package com.appdirect.assignment.services;
 
 import com.appdirect.assignment.dto.EventDTO;
+import org.scribe.exceptions.OAuthException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -33,7 +34,7 @@ public class OAuthAuthenticationServiceImpl implements OAuthAuthenticationServic
     @Autowired
     private Token appDirectToken;
 
-    public EventDTO validatingRequestsFromAppDirect(String eventUrl) {
+    public EventDTO validatingRequestsFromAppDirect(String eventUrl) throws OAuthException {
         OAuthRequest request = new OAuthRequest(Verb.GET, eventUrl);
         appDirectOAuthService.signRequest(appDirectToken, request);
         Response responseFromAppDirect = request.send();
